@@ -25,7 +25,7 @@ SECRET_KEY = 'tn7(se4l2@co**5oy80jz%d^d&*l087_7$3p6ywc37l=#ygf8$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['wms.pythonanywhere.com','127.0.0.1',]
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'xjq',
+    'ddj',
     'polls.apps.PollsConfig',
 ]
 
