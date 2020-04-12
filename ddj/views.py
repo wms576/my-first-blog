@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def ddj_list(request):
+    return render(request,'ddj/ddj_list.html',{})
