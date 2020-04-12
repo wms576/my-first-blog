@@ -1,9 +1,16 @@
 <html>
 	<head>
-		<title>道德经</title>
+		<title>熟背道德经</title>
 	</head>
 <body>
-	<p>Hi there!</p>
-	<p>It works!</p>
+{% for ddjw in ddjws %}
+	<div>
+<h1>{{ddjw.zjh}}</h1>
+<br/><br/><br/>
+<p>{{ddjw.zjw}}</p>
+  </div>
+{% endfor %}
+
+<a href="javascript:location.reload();">点击刷新</a>
 </body>
 </html>
