@@ -1,0 +1,11 @@
+{% extends 'kst/base.html' %}
+
+{% block content %}
+	{% for yh in yhs %}
+	<div class='yh'>
+		{{yh.yhh}}
+		{{yh.yhm}}
+		<div class="date">{{yh.scdl}}</div>
+		{{yh.yhlb}}
+	{% endfor %}
+{% endblock %}

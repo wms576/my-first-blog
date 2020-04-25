@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'blog',
     'xjq',
     'ddj',
+    'kst',
     'polls.apps.PollsConfig',
 ]
 

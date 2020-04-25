@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog/',include('blog.urls')),
     path('ddj/',include('ddj.urls')),
+    path('kst/',include('kst.urls')),
 ]

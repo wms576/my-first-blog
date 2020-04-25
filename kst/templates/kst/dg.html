@@ -1,0 +1,111 @@
+{% extends "kst/base.html"%}
+{%load static%}
+{% block css%}{% static 'css/dg.css' %}{% endblock css%}
+
+ 
+
+ <form class="form-inline mt-2 mt-md-0" method="POST" action="">
+          {% csrf_token %}
+          <input class="form-control mr-sm-2" type="text" placeholder="待办事项" aria-label="Search" name="待办事项">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">添加</button>
+ </form>
+
+
+{% block content%}
+ 
+{% if 警告%}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>{{ 警告 }}</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endif %}
+ 
+{% if 信息%}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>{{ 信息 }}</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endif %}
+ 
+ 
+ 
+    <br>
+      <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">序号</th>
+      <th scope="col">用户名</th>
+      <th scope="col">品名</th>
+      <th scope="col">产地</th>
+      <th scope="col">克重</th>
+      <th scope="col">尺寸</th>
+      <th scope="col">PE</th>
+      <th scope="col">日期</th>
+      <th scope="col">数量</th>
+      <th scope="col">备注</th>
+      <th scope="col">接单</th>
+      <th scope="col">编辑</th>
+      <th scope="col">删除</th>
+
+    </tr>
+  </thead>
+  <tbody class="no-underline">
+ 
+    {% for dg in dgs %}
+        <tr class="table-dark">
+          <th scope="row" class="text-dark">{{forloop.counter}}</th>
+          <td class="text-dark" >{{dg.yhm}}</td>
+          <td class="text-dark" >{{dg.pm}}</td>
+          <td class="text-dark" >{{dg.cd}}</td>
+          <td class="text-dark" >{{dg.kz}}</td>
+          <td class="text-dark">{{dg.cc}}</td>
+          <td class="text-dark" >{{dg.pe}}</td>
+          <td class="text-dark" >{{dg.xdrq}}</td>
+          <td class="text-dark" >{{dg.sl}}</td>
+          <td class="text-dark" >{{dg.bz}}</td>
+          <td class="text-dark" >{{dg.jd}}</td>
+
+          <td><a class="text-info" href="{% url 'updatedg' pk=dg.pk %}">
+            <button type="submit" class="btn btn-outline-success my-2 my-sm-0">编辑</button>
+          </a></td>
+           <td>
+            <!-- Button trigger modal -->
+              <button data-toggle="modal" data-target="#exampleModal{{forloop.counter}}" type="button" class="btn btn-outline-success my-2 my-sm-0" >删除</button>
+ 
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModal{{forloop.counter}}Label" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModal{{forloop.counter}}Label"><font color="red">请确认</h5></font>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body" ><font color="red">确定要删除该项吗？{{dg.yhm}}</font></div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <form method="POST" action="#">
+                      {% csrf_token %}
+                       <button type="submit" class="btn btn-primary">确认</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        </tr>
+
+ 
+    {% endfor %}
+ 
+  </tbody>
+</table>
+ 
+ 
+{% endblock content%}
