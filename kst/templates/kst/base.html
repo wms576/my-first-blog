@@ -30,7 +30,9 @@
                    <li class="nav-item "><a class="nav-link" href="../yh">用户管理</a></li>
                 {% endif %}
 			    {% if request.session.user_yhlb == "管理" or request.session.user_yhlb == "操作" %}
-					<li class="nav-item "><a class="nav-link" href="../yh">品名管理</a></li>
+					<li class="nav-item "><a class="nav-link" href="../cs1">参数管理</a></li>
+					<li class="nav-item "><a class="nav-link" href="../dg_list">订单一览表</a></li>
+
                 {% endif %}
 				<li class="nav-item "><a class="nav-link" href="../dg">下单</a></li>
               {% else %}

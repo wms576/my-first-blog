@@ -12,33 +12,20 @@ class Yh(models.Model):
     def __str__(self):
         return self.yhm
 
-class Pm(models.Model):
-    pm=models.CharField(max_length=100,verbose_name="品名")
+class Cs(models.Model):
+    csm=models.CharField(max_length=100,verbose_name='参数名')
+    csz=models.CharField(max_length=100,verbose_name='参数值')
+    csh=models.SmallIntegerField(verbose_name='序号')
     def __str__(self):
-        return self.pm
+        return self.csz
 
-class Cd(models.Model):
-    cd=models.CharField(max_length=100,verbose_name="产地")
-    def __str__(self):
-        return self.cd
 
-class Kz(models.Model):
-    kz=models.CharField(max_length=100,verbose_name="克重")
-    def __str__(self):
-        return self.kz
-
-class Cc(models.Model):
-    cc=models.CharField(max_length=100,verbose_name="尺寸")
-    def __str__(self):
-        return self.cc
-
-    
 class Dg(models.Model):
-    yhm=models.ForeignKey(to=Yh,to_field='yhm',on_delete=models.DO_NOTHING,verbose_name='订户名')
-    pm=models.ForeignKey(Pm,on_delete=models.DO_NOTHING,verbose_name='品名')
-    cd=models.ForeignKey(Cd,on_delete=models.DO_NOTHING,verbose_name='产地')
-    kz=models.ForeignKey(Kz,on_delete=models.DO_NOTHING,verbose_name='克重')
-    cc=models.ForeignKey(Cc,on_delete=models.DO_NOTHING,verbose_name='尺寸')
+    yhm=models.CharField(max_length=100,verbose_name='订户名')
+    pm=models.CharField(max_length=100,verbose_name='品名')
+    cd=models.CharField(max_length=100,verbose_name='产地')
+    kz=models.CharField(max_length=100,verbose_name='克重')
+    cc=models.CharField(max_length=100,verbose_name='尺寸')
     sl=models.DecimalField(max_digits=10,decimal_places=2,default=0.00)
     pe=models.CharField(max_length=10,choices=(("单PE","单PE"),("双PE","双PE")),default="单PE")
     xdrq=models.DateTimeField(default=timezone.now,verbose_name='下单时间')

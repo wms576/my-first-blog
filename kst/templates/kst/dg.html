@@ -26,8 +26,7 @@
 {% endif %}
 
 <a class="text-info" href="{% url 'dg_new' %}"><button type="submit" class="btn btn-outline-success my-2 my-sm-0">新增</button></a>
- 
-
+<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" title="导出数据" href="{% url 'dg_dc'%}">导出</a>
     <br>
       <table class="table table-hover">
   <thead>
@@ -95,8 +94,6 @@
           </td>
         </tr>
         </tr>
-
- 
     {% endfor %}
  
   </tbody>

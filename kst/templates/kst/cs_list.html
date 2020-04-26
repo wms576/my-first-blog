@@ -1,0 +1,60 @@
+{% extends 'kst/base.html' %}
+
+{% block content %}
+<a href="{% url 'cs1' %}">品名</a>
+<a href="{% url 'cs2' %}">产地</a>
+<a href="{% url 'cs3' %}">克重</a>
+<a href="{% url 'cs4' %}">尺寸</a>
+<br/>
+<a class="text-info" href="{% url 'cs_new' %}"><button type="submit" class="btn btn-outline-success my-2 my-sm-0">新增{{request.session.csm}}</button></a>
+ <table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">参数值</th>
+      <th scope="col">序号</th>
+		 </tr>
+  </thead>
+  <tbody class="no-underline">
+
+ 	{% for kstcs in kstcss %}
+	 <th scope="row" class="text-dark">{{forloop.counter}}</th>
+          <td class="text-dark" >{{kstcs.csz}}</td>
+          <td class="text-dark" >{{kstcs.csh}}</td>
+
+	  <td><a class="text-info" href="{% url 'cs_edit' pk=kstcs.pk %}">
+            <button type="submit" class="btn btn-outline-success my-2 my-sm-0">编辑</button>
+          </a></td>
+           <td>
+            <!-- Button trigger modal -->
+              <button data-toggle="modal" data-target="#exampleModal{{forloop.counter}}" type="button" class="btn btn-outline-success my-2 my-sm-0" >删除</button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModal{{forloop.counter}}Label" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModal{{forloop.counter}}Label"><font color="red">请确认</h5></font>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body" ><font color="red">确定要删除该项吗？{{kstcs.csz}}</font></div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <form method="POST" action="#">
+                      {% csrf_token %}
+                       <button type="submit" class="btn btn-primary">确认</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+        </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+{% endblock %}

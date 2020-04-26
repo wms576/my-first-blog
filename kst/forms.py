@@ -1,8 +1,27 @@
 from django import forms
-from .models import Dg,Pm
+from .models import *
+
+
+class CsForm(forms.ModelForm):
+
+    class Meta:
+        model=Cs
+        fields=('csz','csh',)
 
 class DgForm(forms.ModelForm):
-    pm=forms.ModelChoiceField(queryset=Pm.objects.all())
+
+    cc1 = Cs.objects.filter(csm="品名")
+    Choices1 = ((c1.csz, c1.csz) for c1 in cc1)
+    pm = forms.ChoiceField(choices=Choices1)
+    cc1 = Cs.objects.filter(csm="产地")
+    Choices2 = ((c1.csz, c1.csz) for c1 in cc1)
+    cd = forms.ChoiceField(choices=Choices2)
+    cc1 = Cs.objects.filter(csm="克重")
+    Choices3 = ((c1.csz, c1.csz) for c1 in cc1)
+    kz = forms.ChoiceField(choices=Choices3)
+    cc1=Cs.objects.filter(csm="尺寸")
+    Choices4=((c1.csz,c1.csz) for c1 in cc1)
+    cc=forms.ChoiceField(choices=Choices4)
 
     class Meta:
         model=Dg
