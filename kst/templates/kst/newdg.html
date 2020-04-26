@@ -1,0 +1,9 @@
+{% extends 'kst/base.html' %}
+
+{% block content %}
+    <h2>增加/修改</h2>
+    <br/>
+    <form method="POST" class="dg-form">{% csrf_token %}
+        {{ form.as_p}} <button type="submit" class="save btn btn-default">保存</button>
+    </form>
+{% endblock %}

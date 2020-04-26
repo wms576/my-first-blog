@@ -8,6 +8,7 @@ urlpatterns = [
     path('index/',views.index),
     path('yh/',views.yh),
     path('dg/',views.dg),
+    path('dg_new/',views.dg_new,name='dg_new'),
     path('updatedg/<int:pk>/',views.updatedg,name='updatedg'),
 
     ]

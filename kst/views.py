@@ -15,6 +15,21 @@ def dg(request):
     dgs=Dg.objects.filter(yhm=request.session['user_name'])
     return render(request,'kst/dg.html',{'dgs':dgs})
 
+def dg_new(request):
+    if request.method=="POST":
+        form = DgForm(request.POST)
+        if form.is_valid():
+            dg=form.save(commit=False)
+            dg.yhm=Yh.objects.get(yhm=request.session['user_name'])
+            dg.xdrq = timezone.now()
+            dg.jd=False
+            dg.wd=False
+            dg.save()
+            return redirect('../dg/')
+    else:
+        form=DgForm()
+        return render(request,'kst/updatedg.html',{'form':form})
+
 def updatedg(request,pk):
     dg=get_object_or_404(Dg,pk=pk)
     if request.method=="POST":
@@ -24,10 +39,11 @@ def updatedg(request,pk):
             dg.xdrq = timezone.now()
             dg.save()
             dgs = Dg.objects.filter(yhm=request.session['user_name'])
-            return render(request, 'kst/dg.html', {'dgs': dgs})
+            #**return render(request, 'kst/dg.html', {'dgs': dgs})
+            return redirect('../../dg/')
     else:
         form=DgForm(instance=dg)
-    return render(request,'kst/updatedg.html',{'form':form})
+        return render(request,'kst/updatedg.html',{'form':form})
 
 
 def index(request):
