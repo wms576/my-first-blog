@@ -165,11 +165,11 @@ def export_excel(request):
     excel_row = 1
     for dg in dgs:
       # 写入每一行对应的数据
-      w.write(excel_row, 0, dg.yhm.yhm)
-      w.write(excel_row, 1, dg.pm.pm)
-      w.write(excel_row, 2, dg.cd.cd)
-      w.write(excel_row, 3, dg.kz.kz)
-      w.write(excel_row, 4, dg.cc.cc)
+      w.write(excel_row, 0, dg.yhm)
+      w.write(excel_row, 1, dg.pm)
+      w.write(excel_row, 2, dg.cd)
+      w.write(excel_row, 3, dg.kz)
+      w.write(excel_row, 4, dg.cc)
       w.write(excel_row, 5, dg.pe)
       w.write(excel_row, 6, (dg.xdrq+datetime.timedelta(hours=8)).strftime('%Y-%m-%d %H:%M:%S'))
       w.write(excel_row, 7, dg.sl)
