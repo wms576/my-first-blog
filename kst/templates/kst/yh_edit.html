@@ -1,0 +1,8 @@
+{% extends 'kst/base.html' %}
+
+{% block content %}
+    <h2>参数设置</h2>
+    <form method="POST" class="yh-form">{% csrf_token %}
+        {{ form.as_p}} <button type="submit" class="save btn btn-default">保存</button>
+    </form>
+{% endblock %}

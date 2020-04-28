@@ -15,6 +15,36 @@ def yh(request):
     yhs = Yh.objects.all()
     return render(request,'kst/yh_list.html',{'yhs':yhs})
 
+def yh_new(request):
+    if request.method=="POST":
+        form = YhForm(request.POST)
+        if form.is_valid():
+            yh=form.save(commit=False)
+            yh.csm=request.session['csm']
+            yh.save()
+            return redirect('../yh/')
+    else:
+        form=YhForm()
+        return render(request,'kst/yh_edit.html',{'form':form})
+
+def yh_delete(requet,pk):
+    a=get_object_or_404(Yh,pk=pk)
+    a.delete()
+    return redirect('../../yh/')
+
+def yh_edit(request,pk):
+    yh = get_object_or_404(Yh, pk=pk)
+    if request.method == "POST":
+        form = YhForm(request.POST, instance=yh)
+        if form.is_valid():
+            yh = form.save(commit=False)
+            yh.save()
+            # **return render(request, 'kst/dg.html', {'dgs': dgs})
+            return redirect('../../yh/')
+    else:
+        form = YhForm(instance=yh)
+        return render(request, 'kst/yh_edit.html', {'form': form})
+
 def cs1(request):
     request.session['csm']='品名'
     kstcss=Cs.objects.filter(csm='品名')
@@ -62,12 +92,23 @@ def cs_new(request):
         form=CsForm()
         return render(request,'kst/cs_edit.html',{'form':form})
 
+def cs_delete(requet,pk):
+    a=get_object_or_404(Cs,pk=pk)
+    a.delete()
+    return redirect('../../cs/')
+
+
 def dg(request):
     dgs=Dg.objects.filter(yhm=request.session['user_name'])
     return render(request,'kst/dg.html',{'dgs':dgs})
 def dg_list(request):
     dgs=Dg.objects.filter(wd=False)
-    return render(request,'kst/dg.html',{'dgs':dgs})
+    return render(request,'kst/dg_list.html',{'dgs':dgs})
+def dg_jd(request,pk):
+    a = get_object_or_404(Dg, pk=pk)
+    a.jd=True
+    a.save()
+    return redirect('../../dg_list/')
 
 def dg_new(request):
     if request.method=="POST":
@@ -83,6 +124,11 @@ def dg_new(request):
     else:
         form=DgForm()
         return render(request,'kst/updatedg.html',{'form':form})
+
+def dg_delete(requet,pk):
+    a=get_object_or_404(Dg,pk=pk)
+    a.delete()
+    return redirect('../../dg/')
 
 def updatedg(request,pk):
     dg=get_object_or_404(Dg,pk=pk)

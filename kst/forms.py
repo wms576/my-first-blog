@@ -8,6 +8,13 @@ class CsForm(forms.ModelForm):
         model=Cs
         fields=('csz','csh',)
 
+
+class YhForm(forms.ModelForm):
+
+    class Meta:
+        model=Yh
+        fields=('yhh','yhm','yhlb',)
+
 class DgForm(forms.ModelForm):
 
     cc1 = Cs.objects.filter(csm="品名")

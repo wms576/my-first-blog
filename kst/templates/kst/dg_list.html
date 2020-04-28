@@ -3,8 +3,6 @@
 {% block css%}{% static 'css/dg.css' %}{% endblock css%}
 
  
-
-
 {% block content%}
  
 {% if 警告%}
@@ -41,9 +39,10 @@
       <th scope="col">日期</th>
       <th scope="col">数量</th>
       <th scope="col">备注</th>
-      <th scope="col">接单</th>
+      <th scope="col">状态</th>
       <th scope="col">编辑</th>
       <th scope="col">删除</th>
+      <th scope="col">接单</th>
 
     </tr>
   </thead>
@@ -91,7 +90,31 @@
                 </div>
               </div>
             </div>
-          </td>
+           </td>
+          <td>
+
+
+             <button data-toggle="modal" data-target="#exampleModal1{{forloop.counter}}" type="button" class="btn btn-outline-success my-2 my-sm-0" >接单</button>
+
+            <div class="modal fade" id="exampleModal1{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModal{{forloop.counter}}Label" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModal{{forloop.counter}}Label"><font color="red">请确认</h5></font>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  </div>
+                  <div class="modal-body" ><font color="red">确定要接单该项吗？{{dg.yhm}}- {{dg.pm}} -{{dg.cd}}</font></div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <form method="POST" action="{% url 'dg_jd' dg.pk %}">
+                      {% csrf_token %}
+                       <button type="submit" class="btn btn-primary">确认</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+           </td>
         </tr>
         </tr>
     {% endfor %}
