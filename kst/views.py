@@ -12,7 +12,7 @@ def index1(request):
     return redirect('./index/')
 
 def yh(request):
-    yhs = Yh.objects.all()
+    yhs = Yh.objects.all().order_by('yhh')
     return render(request,'kst/yh_list.html',{'yhs':yhs})
 
 def yh_new(request):
@@ -39,7 +39,6 @@ def yh_edit(request,pk):
         if form.is_valid():
             yh = form.save(commit=False)
             yh.save()
-            # **return render(request, 'kst/dg.html', {'dgs': dgs})
             return redirect('../../yh/')
     else:
         form = YhForm(instance=yh)
@@ -47,23 +46,23 @@ def yh_edit(request,pk):
 
 def cs1(request):
     request.session['csm']='品名'
-    kstcss=Cs.objects.filter(csm='品名')
+    kstcss=Cs.objects.filter(csm='品名').order_by('csh')
     return render(request,'kst/cs_list.html',{'kstcss':kstcss})
 def cs2(request):
     request.session['csm'] = '产地'
-    kstcss=Cs.objects.filter(csm='产地')
+    kstcss=Cs.objects.filter(csm='产地').order_by('csh')
     return render(request,'kst/cs_list.html',{'kstcss':kstcss})
 def cs3(request):
     request.session['csm'] = '克重'
-    kstcss=Cs.objects.filter(csm='克重')
+    kstcss=Cs.objects.filter(csm='克重').order_by('csh')
     return render(request,'kst/cs_list.html',{'kstcss':kstcss})
 def cs4(request):
     request.session['csm'] = '尺寸'
-    kstcss=Cs.objects.filter(csm='尺寸')
+    kstcss=Cs.objects.filter(csm='尺寸').order_by('csh')
     return render(request,'kst/cs_list.html',{'kstcss':kstcss})
 
 def cs(request):
-    kstcss = Cs.objects.filter(csm=request.session['csm'])
+    kstcss = Cs.objects.filter(csm=request.session['csm']).order_by('csh')
     return render(request, 'kst/cs_list.html', {'kstcss': kstcss})
 
 def cs_edit(request,pk):
@@ -99,10 +98,10 @@ def cs_delete(requet,pk):
 
 
 def dg(request):
-    dgs=Dg.objects.filter(yhm=request.session['user_name'])
+    dgs=Dg.objects.filter(yhm=request.session['user_name']).order_by('xdrq')
     return render(request,'kst/dg.html',{'dgs':dgs})
 def dg_list(request):
-    dgs=Dg.objects.filter(wd=False)
+    dgs=Dg.objects.filter(wd=False).order_by('xdrq')
     return render(request,'kst/dg_list.html',{'dgs':dgs})
 def dg_jd(request,pk):
     a = get_object_or_404(Dg, pk=pk)
