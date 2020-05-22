@@ -11,6 +11,7 @@ urlpatterns = [
     path('yh_delete/<int:pk>/', views.yh_delete, name='yh_delete'),
     path('yh_edit/', views.yh_edit, name='yh_edit1'),
     path('yh_edit/<int:pk>/', views.yh_edit, name='yh_edit'),
+    path('yh_editmm/<int:pk>',views.yh_editmm,name='yh_editmm'),
 
     path('cs1/', views.cs1,name='cs1'),
     path('cs2/', views.cs2,name='cs2'),

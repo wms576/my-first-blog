@@ -8,20 +8,26 @@ class CsForm(forms.ModelForm):
         model=Cs
         fields=('csz','csh',)
 
-
 class YhForm(forms.ModelForm):
     Choicesyhlb = (('管理', '管理'), ('操作', '操作'), ('客户', '客户'),)
-    yhlb=forms.ChoiceField(choices=Choicesyhlb)
+    yhlb=forms.ChoiceField(choices=Choicesyhlb,label='用户类别')
     class Meta:
         model=Yh
-        fields=('yhh','yhm','yhlb',)
+        fields=('yhh','yhm','yhlb','mm')
 
 class YhForm1(forms.ModelForm):
     Choicesyhlb = (('操作', '操作'), ('客户', '客户'),)
-    yhlb=forms.ChoiceField(choices=Choicesyhlb)
+    yhlb=forms.ChoiceField(choices=Choicesyhlb,label='用户类别')
     class Meta:
         model=Yh
-        fields=('yhh','yhm','yhlb',)
+        fields=('yhh','yhm','yhlb','mm')
+
+class YhmmForm(forms.ModelForm):
+    Choicesyhlb = (('客户', '客户'),)
+    yhlb=forms.ChoiceField(choices=Choicesyhlb,label='用户类别')
+    class Meta:
+        model=Yh
+        fields=('yhlb','mm')
 
 class DgForm(forms.ModelForm):
 
@@ -34,9 +40,9 @@ class DgForm(forms.ModelForm):
     cc1 = Cs.objects.filter(csm="克重")
     Choices3 = ((c1.csz, c1.csz) for c1 in cc1)
     kz = forms.ChoiceField(choices=Choices3,label='克重')
-    cc1=Cs.objects.filter(csm="尺寸")
+    cc1=Cs.objects.filter(csm="pe")
     Choices4=((c1.csz,c1.csz) for c1 in cc1)
-    cc=forms.ChoiceField(choices=Choices4,label='尺寸')
+    pe=forms.ChoiceField(choices=Choices4,label='PE')
 
     class Meta:
         model=Dg

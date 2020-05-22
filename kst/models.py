@@ -27,10 +27,10 @@ class Dg(models.Model):
     kz=models.CharField(max_length=100,verbose_name='克重')
     cc=models.CharField(max_length=100,verbose_name='尺寸')
     sl=models.DecimalField(max_digits=10,decimal_places=2,default=0.00,verbose_name='数量')
-    pe=models.CharField(max_length=10,choices=(("单PE","单PE"),("双PE","双PE")),default="单PE")
-    yhrq=models.CharField(max_length=20,default='',verbose_name='要货日期')
+    pe=models.CharField(max_length=100,verbose_name="PE",default="单PE")
+    yhrq=models.CharField(max_length=20,default='',verbose_name='要货日期',null=True)
     xdrq=models.DateTimeField(default=timezone.now,verbose_name='下单时间')
-    bz=models.CharField(max_length=200,verbose_name='备注')
+    bz=models.CharField(max_length=200,verbose_name='备注',null=True)
     jd=models.BooleanField(default='false',verbose_name='接单')
     wd=models.BooleanField(default='false',verbose_name='完单')
     

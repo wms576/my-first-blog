@@ -12,7 +12,10 @@ def index1(request):
     return redirect('./index/')
 
 def yh(request):
-    yhs = Yh.objects.all().order_by('yhh')
+    if request.session['user_yhlb']=='客户':
+        yhs=Yh.objects.filter(yhh=request.session['yhh'])
+    else:
+        yhs = Yh.objects.all().order_by('yhh')
     return render(request,'kst/yh_list.html',{'yhs':yhs})
 
 def yh_new(request):
@@ -44,6 +47,20 @@ def yh_edit(request,pk):
         form = YhForm(instance=yh)
         return render(request, 'kst/yh_edit.html', {'form': form})
 
+def yh_editmm(request,pk):
+    yh = get_object_or_404(Yh, pk=pk)
+    if request.method == "POST":
+        form = YhmmForm(request.POST, instance=yh)
+        if form.is_valid():
+            yh = form.save(commit=False)
+            yh.save()
+            return redirect('../yh/')
+    else:
+        form = YhmmForm(instance=yh)
+        return render(request, 'kst/yh_editmm.html', {'form': form})
+
+
+
 def cs1(request):
     request.session['csm']='品名'
     kstcss=Cs.objects.filter(csm='品名').order_by('csh')
@@ -57,8 +74,8 @@ def cs3(request):
     kstcss=Cs.objects.filter(csm='克重').order_by('csh')
     return render(request,'kst/cs_list.html',{'kstcss':kstcss})
 def cs4(request):
-    request.session['csm'] = '尺寸'
-    kstcss=Cs.objects.filter(csm='尺寸').order_by('csh')
+    request.session['csm'] = 'pe'
+    kstcss=Cs.objects.filter(csm='pe').order_by('csh')
     return render(request,'kst/cs_list.html',{'kstcss':kstcss})
 
 def cs(request):
@@ -122,7 +139,7 @@ def dg_new(request):
             return redirect('../dg/')
     else:
         form=DgForm()
-        return render(request,'kst/updatedg.html',{'form':form})
+        return render(request,'kst/updatedg1.html',{'form':form})
 
 def dg_delete(requet,pk):
     a=get_object_or_404(Dg,pk=pk)
@@ -159,6 +176,8 @@ def login(request):
                 user = Yh.objects.get(yhh=username)
                 if user.mm ==password:
                     request.session['is_login']=True
+                    request.session['yhh']=user.yhh
+                    request.session['yhm']=user.yhm
                     request.session['user_name']=user.yhm
                     request.session['user_yhlb']=user.yhlb
                     request.session['csm']='品名'

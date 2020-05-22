@@ -1,36 +1,42 @@
 {% extends 'kst/base.html' %}
 
 {% block content %}
+ {% if request.session.user_yhlb == "管理" or request.session.user_yhlb == "操作" %}
 <a class="text-info" href="{% url 'yh_new' %}"><button type="submit" class="btn btn-outline-success my-2 my-sm-0">新增用户</button></a>
- <table class="table table-hover">
+ {% endif %}
+<table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">序号</th>
-      <th scope="col">用户号</th>
-      <th scope="col">用户名</th>
-      <th scope="col">上次登录</th>
-      <th scope="col">用户类别</th>
-      <th scope="col">编辑</th>
-      <th scope="col">删除</th>
+          <th scope="col">序号</th>
+          <th scope="col">用户号</th>
+        <th scope="col">用户名</th>
+        <th scope="col">上次登录</th>
+        <th scope="col">用户类别</th>
+        {% if request.session.user_yhlb == "管理" or request.session.user_yhlb == "操作" %}
+        <th scope="col">编辑</th>
+        <th scope="col">删除</th>
+        {% else %}
+        <th scope="col">修改密码</th>
+        {%endif%}
     </tr>
   </thead>
   <tbody class="no-underline">
-
  	{% for yh in yhs%}
+
 	 <th scope="row" class="text-dark">{{forloop.counter}}</th>
           <td class="text-dark" >{{yh.yhh}}</td>
           <td class="text-dark" >{{yh.yhm}}</td>
           <td class="text-dark" >{{yh.scdl}}</td>
           <td class="text-dark" >{{yh.yhlb}}</td>
 
-
-	  <td><a class="text-info" href="{% url 'yh_edit' pk=yh.pk %}">
+      {% if request.session.user_yhlb == "管理" or request.session.user_yhlb == "操作" %}
+	      <td><a class="text-info" href="{% url 'yh_edit' pk=yh.pk %}">
             <button type="submit" class="btn btn-outline-success my-2 my-sm-0">编辑</button>
           </a></td>
+
            <td>
             <!-- Button trigger modal -->
               <button data-toggle="modal" data-target="#exampleModal{{forloop.counter}}" type="button" class="btn btn-outline-success my-2 my-sm-0" >删除</button>
-
             <!-- Modal -->
             <div class="modal fade" id="exampleModal{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModal{{forloop.counter}}Label" aria-hidden="true">
               <div class="modal-dialog" role="document">
@@ -53,7 +59,15 @@
               </div>
             </div>
           </td>
-        </tr>
+    {% else %}
+        <td><a class="text-info" href="{% url 'yh_editmm' pk=yh.pk %}">
+            <button type="submit" class="btn btn-outline-success my-2 my-sm-0">修改密码</button>
+          </a></td>
+           <td>
+    {%endif%}
+
+               </tr>
+
         </tr>
     {% endfor %}
 
